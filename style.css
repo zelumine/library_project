@@ -1,0 +1,105 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 99vw;
+    height: auto;
+    font-family: "Bitter", serif;
+}
+
+/* Table */
+table {
+    max-width: 90vw;
+    border: solid blue 2px;
+    border-radius: 5px;
+}
+
+td {
+    border-top: solid blue 1px;
+    border-left: solid blue 1px;
+}
+
+.hidden {
+    display: none;
+}
+
+.title {
+    font-style: italic;
+    padding-left: 10px;
+}
+
+.author {
+    padding-left: 10px;
+}
+
+.pages {
+    text-align: center;
+}
+
+.read, .not-read {
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+
+.read {
+    background: #04B404; 
+}
+
+.not-read {
+    background: #DF0101; 
+}
+
+.delete {
+    color: red;
+    padding-left: 20px;
+}
+
+.delete:hover {
+    cursor: pointer;
+}
+/* End table */
+
+/* Form */
+form {
+    border: 2px blue dashed;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+}
+
+form > div {
+    padding: 10px 5px;
+}
+
+input[type="text"], input[type="number"] {
+    height: 30px;
+    margin-left: 5px;
+    border: 1px solid blue;
+    border-radius: 5px;
+}
+/* End form */
+
+/* Buttons */
+#adding-button, #submit-button {
+    background: blue;
+    color: #FFFFFF;
+    width: 150px;
+    height: 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+#adding-button {
+    margin: 30px 0;
+}
+
+#submit-button {
+    align-self: center;
+}
+
