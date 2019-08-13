@@ -27,11 +27,11 @@ td {
 
 .title {
     font-style: italic;
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
 .author {
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
 .pages {
@@ -52,12 +52,12 @@ td {
     background: #DF0101; 
 }
 
-.delete {
+.supp {
     color: red;
-    padding-left: 20px;
+    text-align: center;
 }
 
-.delete:hover {
+.supp:hover {
     cursor: pointer;
 }
 /* End table */
@@ -68,7 +68,7 @@ form {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    max-height: 400px;
+    max-height: 450px;
 }
 
 form > div {
@@ -77,6 +77,8 @@ form > div {
 
 input[type="text"], input[type="number"] {
     height: 30px;
+    width: 300px;
+    text-indent: 5px;
     margin-left: 5px;
     border: 1px solid blue;
     border-radius: 5px;
