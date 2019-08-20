@@ -57,7 +57,7 @@ td {
     text-align: center;
 }
 
-.supp:hover {
+.supp:hover, .edit:hover {
     cursor: pointer;
 }
 /* End table */

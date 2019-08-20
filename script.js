@@ -8,9 +8,9 @@ const addButton = document.getElementById("adding-button");
 const submitButton = document.getElementById("submit-button");
 const addForm = document.getElementById("add-form");
 const container = document.getElementById("container");
-const deleteButtons = document.getElementsByClassName("supp");
 const formInputs = addForm.querySelectorAll("input");
 const submitResponse = document.createElement("div");
+
 // End variables
 
 // Functions
@@ -25,6 +25,9 @@ function Book(title, author, pages, readOrNot) {
     this.readOrNot = readOrNot;
     this.info = function() {
         return `"${this.title}" by ${this.author}, ${this.pages} pages, ${this.readOrNot}.`;
+    }
+    this.toggleReadStatus = function() {
+        this.readOrNot === "read" ? this.readOrNot = "not read" : this.readOrNot = "read";
     }
 }
 
@@ -46,20 +49,31 @@ function transformDataIntoBook(arr) {
 function render(arr) {
     for(let i = 0; i < arr.length; i++) {
         let readClass;
-        if(arr[i].readOrNot.includes("not")) {
-            readClass = "not-read";
-        } else {
-            readClass = "read";
-        }
+        arr[i].readOrNot.includes("not") ? readClass = "not-read" 
+                                        : readClass = "read";
+        
         let bookRow = document.createElement("tr");
-        bookRow.innerHTML = `<td class="hidden" >${i}</td>
-                            <td class="title">${arr[i].title}</td>
+        bookRow.innerHTML = `<td class="title">${arr[i].title}</td>
                             <td class="author">${arr[i].author}</td>
                             <td class="pages">${arr[i].pages}</td>
-                            <td class=${readClass}>${capitalize(arr[i].readOrNot)}</td>
-                            <td><div class="supp" data-index="${i}">Delete <i class="fas fa-trash-alt"></div></td>`
+                            <td class=${readClass}><div class="edit" data-index="${i}">${capitalize(arr[i].readOrNot)} <i class="fas fa-edit" data-index="${i}"></i></div></td>
+                            <td><div class="supp" data-index="${i}">Delete <i class="fas fa-trash-alt" data-index="${i}"></div></td>`
         booksList.appendChild(bookRow);
     } 
+    let deleteButtons = document.querySelectorAll(".supp");
+    let editButtons = document.querySelectorAll(".edit");
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            let index = e.target.dataset.index;
+            booksList.deleteRow(index);
+            myLibrary.splice(index, 1);
+        });
+    });
+    
+    editButtons.forEach(button => {
+        button.addEventListener("click", changeStatus);
+    });
 }
 
 function actualizeLibrary(arr) {
@@ -67,20 +81,28 @@ function actualizeLibrary(arr) {
         booksList.innerHTML = "";
     }
     render(arr);
-    addedInput = [];
-    formInputs.forEach(input => {
-        input.value = "";
-    });
+        
+    if(addedInput.length > 0) {
+        addedInput = [];
+        formInputs.forEach(input => {
+            input.value = "";
+        });
+    }
+}
+
+function changeStatus(e) {
+    let index = e.target.dataset.index;
+    myLibrary[index].toggleReadStatus();
+    actualizeLibrary(myLibrary);
 }
 // End functions
 
-addBookToLibrary("whenIwasFive", "When I was five I killed myself", "Howard Butten", 191, "read");
+addBookToLibrary("whenIWasFive", "When I was five I killed myself", "Howard Butten", 191, "read");
 addBookToLibrary("lordOfTheRings", "The Lord of the Rings", "J.R.R. Tolkien", 1441, "not read");
 addBookToLibrary("it", "It", "Stephen King", 1392, "read");
 addBookToLibrary("theStand", "The Stand", "Stephen King", 1472, "not read");
 
 render(myLibrary);
-
 
 // Events
 addButton.addEventListener("click", () => {
@@ -102,12 +124,3 @@ submitButton.addEventListener("click", () => {
     container.appendChild(submitResponse);
     setTimeout(() => { container.removeChild(submitResponse); }, 3000);
 });
-
-for (let i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener("click", (e) => {
-        let index = e.target.dataset.index;
-        booksList.deleteRow(index);
-        myLibrary.splice(index, 1);
-    });
-};
-
